@@ -9,20 +9,7 @@ const JWT_SECRET = process.env.JWT_SECRET;
 let success = false;
 
 
-router.post('/register', [
-    body('fullName', 'Enter a valid name').isLength({ min: 5 }),
-    body('companyName', 'Enter a valid company name').isLength({ min: 3 }),
-    body('email', 'Enter a valid email').isEmail(),
-    body('password', 'Password must be atleast 5 character').isLength({ min: 5 }),
-    body('mobile', 'Mobile number must be atleast 10 character').isLength({ min: 10 }),
-    body('companyAddress', 'Enter a valid address').isLength({ min: 5 }),
-
-], async (req, res) => {
-    //If there are errors, return bad request and the errors
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ success: false, errors: errors.array() });
-    }
+router.post('/register', async (req, res) => {
 
     //Check whether the agency with this email exist already
     try {

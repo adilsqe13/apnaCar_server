@@ -8,22 +8,7 @@ const jwt = require('jsonwebtoken');
 const JWT_SECRET = process.env.JWT_SECRET;
 
 
-router.post('/register', [
-    body('fullName', 'Enter a valid name').isLength({ min: 1 }),
-    body('email', 'Enter a valid email').isEmail(),
-    body('password', 'Password must be atleast 5 character').isLength({ min: 5 }),
-    body('mobile', 'Mobile number will be 10 digit ').isLength({ max: 10 }),
-    body('address', 'Enter a valid address').isLength({ min: 5 }),
-    body('city', 'Enter a valid city name').isLength({ min: 5 }),
-    body('state', 'Enter valid address').isLength({ min: 5 }),
-    body('postalCode', 'Enter a valid postal code').isLength({ min: 6 }),
-
-], async (req, res) => {
-    //If there are errors, return bad request and the errors
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ success: false, errors: errors.array() });
-    }
+router.post('/register', async (req, res) => {
 
     //Check whether the user with this email exist already
     try {
